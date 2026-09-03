@@ -7,12 +7,21 @@ DATA_DIR = Path(__file__).resolve().parent / "cleaned_files"
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 FILES = {
-    "sales_clean.csv.gz": "YOUR_SALES_FILE_ID",
-    "stores_clean.csv": "YOUR_STORES_FILE_ID",
-    "skus_clean.csv": "YOUR_SKUS_FILE_ID",
-    "forecast_backtest.csv.gz": "YOUR_FORECAST_FILE_ID",
-    "risk_final.csv.gz": "YOUR_RISK_FILE_ID",
-    "wape_summary.csv": "YOUR_WAPE_FILE_ID",
+    "customer_segments.csv": "1a-Fwr3pOf4SnjbmmsF_yJXeN_lbYx2TW",
+    "customers_clean.csv": "1N69NeCNhX-TomMwe0Pca-jiLs5Uf0MGE",
+    "flags_clean.csv": "1vwNKRb0EqtI4wN1cwY-8Ey2Yu8cg3AYP",
+    "forecast_backtest.csv.gz": "1GM8AXlWU0sZg1D_K_OD34i17ze5DvLjx",
+    "forecast_data.csv": "1zaHWg-obOFtPJpH6rqk4Au7YI5umvDeN",
+    "inventory_clean.csv": "1K-p758ZSornzJLRGCbjKRT2eB7IleuhK",
+    "latest_forecast": "174yPDslDcrByboPPNkkVbLWKZdJsNXz1",
+    "promotion_clean.csv": "1bBLGGxUsi83ldNRcnrUlB1SAhL8rhsQM",
+    "risk_final.csv.gz": "1n-ZENF6_3sZplLN9z7jHV1Srlwhn0IIc",
+    "sales_clean.csv.gz": "1DW5GgBkmAKtRPrGDim79mvY2q-QntRYw",
+    "skus_clean.csv.gz": "1sB_6-MKAsF26NJpqqpHQE5rF8Qr3bKGM",
+    "stores_clean.csv": "1COuhmL8daF3vpHLZ5j_GEk0VsQVQK7Hl",
+    "wape_summary.csv": "1O8echCgXHHbmDvrpH98n_ak1KD5g2VUH",
+
+   
 }
 
 
