@@ -1,6 +1,12 @@
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import streamlit as st
+
+from download_data import download_data
+DATA_DIR = Path(__file__).resolve().parent / "cleaned_files"
+
 
 # ========================================
 # PAGE SETUP - PROFESSIONAL LOOK
@@ -47,21 +53,33 @@ if "loaded" not in st.session_state:
     progress_bar = st.progress(0)
     status_text = st.empty()
 
+    download_data()
+
     status_text.text("Loading sales data...")
-    sales = pd.read_csv("cleaned_files/sales_clean.csv.gz")
+    sales = pd.read_csv(
+        DATA_DIR / "sales_clean.csv.gz",
+        compression="gzip"
+    )
     progress_bar.progress(25)
 
     status_text.text("Loading store & product info...")
-    stores = pd.read_csv("cleaned_files/stores_clean.csv")
-    skus = pd.read_csv("cleaned_files/skus_clean.csv")
+    stores = pd.read_csv(DATA_DIR / "stores_clean.csv")
+    skus = pd.read_csv(DATA_DIR / "skus_clean.csv")
+
     sales = sales.merge(stores, on="store_id", how="left")
     sales = sales.merge(skus, on="sku_id", how="left")
     progress_bar.progress(50)
 
     status_text.text("Loading forecast & risk data...")
-    forecast = pd.read_csv("cleaned_files/forecast_backtest.csv.gz")
-    risk = pd.read_csv("cleaned_files/risk_final.csv.gz")
-    wape = pd.read_csv("cleaned_files/wape_summary.csv")
+    forecast = pd.read_csv(
+        DATA_DIR / "forecast_backtest.csv.gz",
+        compression="gzip"
+    )
+    risk = pd.read_csv(
+        DATA_DIR / "risk_final.csv.gz",
+        compression="gzip"
+    )
+    wape = pd.read_csv(DATA_DIR / "wape_summary.csv")
     progress_bar.progress(75)
 
     status_text.text("Finalizing...")
@@ -76,8 +94,7 @@ if "loaded" not in st.session_state:
     status_text.empty()
     progress_bar.empty()
 
-    st.success("✅ Dashboard ready! All data loaded into memory.")
-    st.info("💡 Tip: Use the sidebar filters to explore specific categories or SKUs.")
+    st.success("Dashboard ready! All data loaded into memory.")
 
 # Pull from memory (instant)
 sales = st.session_state.sales
