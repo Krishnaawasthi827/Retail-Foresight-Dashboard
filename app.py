@@ -60,7 +60,7 @@ if "loaded" not in st.session_state:
     sales = pd.read_csv(
     DATA_DIR / "sales_clean.csv.gz",
     compression="gzip",
-    nrows=100000,
+    low_memory=False,
 )
     progress_bar.progress(25)
 
