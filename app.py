@@ -232,95 +232,26 @@ with tab3:
 
 # ---------- TAB 4: DECISION GRID ----------
 with tab4:
-    st.subheader("Simple SKU Decision Grid")
-    st.caption("Use the recommended action to decide what to do with each product.")
+    st.subheader("SKU Decisioning Grid")
+    st.caption("Stockout Risk (Y) vs Overstock Risk (X) — Bubble size = Rupee impact")
 
-    # Create a simple, readable decision table
-    decision_table = filtered_risk[
-        [
-            "sku_name",
-            "category",
-            "stock_on_hand",
-            "forecast_4week",
-            "action",
-            "stockout_rupees",
-            "overstock_rupees",
-        ]
-    ].copy()
+    st.write("🔴 **Reorder Now** | 🟠 **Markdown** | 🟡 **Watch** | 🟢 **Healthy**")
 
-    decision_table = decision_table.rename(
-        columns={
-            "sku_name": "SKU",
-            "category": "Category",
-            "stock_on_hand": "Current Stock",
-            "forecast_4week": "4-Week Forecast",
-            "action": "Recommended Action",
-            "stockout_rupees": "Stockout Risk ₹",
-            "overstock_rupees": "Overstock Risk ₹",
-        }
+    st.scatter_chart(
+        filtered_risk,
+        x="overstock_score",
+        y="stockout_score",
+        color="action",
+        size="stockout_rupees"
     )
 
-    # Sort the most urgent actions first
-    action_order = {
-        "REORDER NOW": 1,
-        "MARKDOWN / CLEAR": 2,
-        "WATCH / VOLATILE": 3,
-        "HEALTHY": 4,
-    }
-
-    decision_table["Sort Order"] = (
-        decision_table["Recommended Action"]
-        .map(action_order)
-        .fillna(5)
-    )
-
-    decision_table = (
-        decision_table
-        .sort_values(["Sort Order", "Stockout Risk ₹"], ascending=[True, False])
-        .drop(columns=["Sort Order"])
-    )
-
-    # Summary counts
-    reorder_count = len(
-        filtered_risk[filtered_risk["action"] == "REORDER NOW"]
-    )
-    markdown_count = len(
-        filtered_risk[filtered_risk["action"] == "MARKDOWN / CLEAR"]
-    )
-    watch_count = len(
-        filtered_risk[filtered_risk["action"] == "WATCH / VOLATILE"]
-    )
-    healthy_count = len(
-        filtered_risk[filtered_risk["action"] == "HEALTHY"]
-    )
-
-    c1, c2, c3, c4 = st.columns(4)
-
-    c1.metric("Reorder Now", reorder_count)
-    c2.metric("Markdown / Clear", markdown_count)
-    c3.metric("Watch", watch_count)
-    c4.metric("Healthy", healthy_count)
-
-    st.markdown("---")
-
-    st.markdown("### What should you do?")
-
-    st.info(
-        "REORDER NOW: Increase stock immediately. "
-        "MARKDOWN / CLEAR: Reduce price or stop replenishing. "
-        "WATCH / VOLATILE: Monitor demand closely. "
-        "HEALTHY: No immediate action required."
-    )
-
-    st.markdown("### Product Action List")
-
-    st.dataframe(
-        decision_table,
-        use_container_width="stretch",
-        hide_index=True,
-        height=500,
-    )
-
+    st.info("""
+    **How to read this chart:**
+    - **Top-left:** High stockout risk, low overstock → Reorder immediately
+    - **Bottom-right:** Low stockout, high overstock → Mark down to clear stock
+    - **Top-right:** High on both → Watch closely, demand is erratic
+    - **Bottom-left:** Low on both → Healthy, no action needed
+    """)
 # ---------- TAB 5: PRIORITY LIST ----------
 with tab5:
     st.subheader("Prioritised Action List")
