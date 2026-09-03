@@ -66,10 +66,7 @@ if "loaded" not in st.session_state:
 
     status_text.text("Loading store and product information...")
     stores = pd.read_csv(DATA_DIR / "stores_clean.csv")
-    skus = pd.read_csv(
-        DATA_DIR / "skus_clean.csv",
-        compression="gzip",
-    )
+    skus = pd.read_csv(DATA_DIR / "skus_clean.csv")
 
     sales = sales.merge(stores, on="store_id", how="left")
     sales = sales.merge(skus, on="sku_id", how="left")
