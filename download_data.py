@@ -17,7 +17,7 @@ FILES = {
     "promotion_clean.csv": "1bBLGGxUsi83ldNRcnrUlB1SAhL8rhsQM",
     "risk_final.csv.gz": "1n-ZENF6_3sZplLN9z7jHV1Srlwhn0IIc",
     "sales_clean.csv.gz": "1DW5GgBkmAKtRPrGDim79mvY2q-QntRYw",
-    "skus_clean.csv.gz": "1sB_6-MKAsF26NJpqqpHQE5rF8Qr3bKGM",
+    "skus_clean.csv": "1sB_6-MKAsF26NJpqqpHQE5rF8Qr3bKGM",
     "stores_clean.csv": "1COuhmL8daF3vpHLZ5j_GEk0VsQVQK7Hl",
     "wape_summary.csv": "1O8echCgXHHbmDvrpH98n_ak1KD5g2VUH",
 
