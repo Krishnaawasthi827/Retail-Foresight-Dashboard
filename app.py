@@ -67,7 +67,7 @@ if "loaded" not in st.session_state:
     status_text.text("Loading store and product information...")
     stores = pd.read_csv(DATA_DIR / "stores_clean.csv")
     skus = pd.read_csv(
-        DATA_DIR / "skus_clean.csv.gz",
+        DATA_DIR / "skus_clean.csv",
         compression="gzip",
     )
 
