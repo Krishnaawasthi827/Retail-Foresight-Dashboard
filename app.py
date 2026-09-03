@@ -252,6 +252,7 @@ with tab4:
     - **Top-right:** High on both → Watch closely, demand is erratic
     - **Bottom-left:** Low on both → Healthy, no action needed
     """)
+    
 # ---------- TAB 5: PRIORITY LIST ----------
 with tab5:
     st.subheader("Prioritised Action List")
