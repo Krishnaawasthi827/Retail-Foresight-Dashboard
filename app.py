@@ -231,7 +231,6 @@ with tab3:
     st.dataframe(display_df, width='stretch', height=400)
 
 # ---------- TAB 4: DECISION GRID ----------
-# ---------- TAB 4: DECISION GRID ----------
 with tab4:
     st.subheader("Simple SKU Decision Grid")
     st.caption("Use the recommended action to decide what to do with each product.")
@@ -317,7 +316,7 @@ with tab4:
 
     st.dataframe(
         decision_table,
-        use_container_width=True,
+        use_container_width="stretch",
         hide_index=True,
         height=500,
     )
