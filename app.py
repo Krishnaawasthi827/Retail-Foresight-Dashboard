@@ -57,11 +57,7 @@ if "loaded" not in st.session_state:
     download_data()
 
     status_text.text("Loading sales data...")
-    sales = pd.read_csv(
-    DATA_DIR / "sales_clean.csv.gz",
-    compression="gzip",
-    low_memory=False,
-)
+    sales = pd.read_csv("cleaned_files/sales_clean.csv.gz")
     progress_bar.progress(25)
 
     status_text.text("Loading store and product information...")
