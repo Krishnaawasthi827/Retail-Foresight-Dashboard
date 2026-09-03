@@ -53,36 +53,42 @@ if "loaded" not in st.session_state:
     progress_bar = st.progress(0)
     status_text = st.empty()
 
+    status_text.text("Downloading dashboard data...")
     download_data()
 
     status_text.text("Loading sales data...")
     sales = pd.read_csv(
         DATA_DIR / "sales_clean.csv.gz",
-        compression="gzip"
+        compression="gzip",
+        low_memory=False,
     )
     progress_bar.progress(25)
 
-    status_text.text("Loading store & product info...")
+    status_text.text("Loading store and product information...")
     stores = pd.read_csv(DATA_DIR / "stores_clean.csv")
-    skus = pd.read_csv(DATA_DIR / "skus_clean.csv")
+    skus = pd.read_csv(
+        DATA_DIR / "skus_clean.csv.gz",
+        compression="gzip",
+    )
 
     sales = sales.merge(stores, on="store_id", how="left")
     sales = sales.merge(skus, on="sku_id", how="left")
     progress_bar.progress(50)
 
-    status_text.text("Loading forecast & risk data...")
+    status_text.text("Loading forecast and risk data...")
     forecast = pd.read_csv(
         DATA_DIR / "forecast_backtest.csv.gz",
-        compression="gzip"
+        compression="gzip",
     )
+
     risk = pd.read_csv(
         DATA_DIR / "risk_final.csv.gz",
-        compression="gzip"
+        compression="gzip",
     )
+
     wape = pd.read_csv(DATA_DIR / "wape_summary.csv")
     progress_bar.progress(75)
 
-    status_text.text("Finalizing...")
     st.session_state.sales = sales
     st.session_state.forecast = forecast
     st.session_state.risk = risk
@@ -93,6 +99,7 @@ if "loaded" not in st.session_state:
     progress_bar.progress(100)
     status_text.empty()
     progress_bar.empty()
+
 
     st.success("Dashboard ready! All data loaded into memory.")
 
